@@ -1,0 +1,60 @@
+use Students
+
+create table Students(
+Id int identity(1,1),
+FullName nvarchar(20) not null,
+Birthday Date not null,
+registirationDate date not null
+primary key(Id)
+)
+--
+select * from Students
+select FullName as 'Ad Soyad' from Students
+select FullName+' (2B)' as 'Ad Soyad' from Students
+select concat(FullName,' ',Id) as 'Ad Soyad' from Students
+select FullName +' '+ CONVERT(nvarchar(20),getdate()) from Students
+--
+select * from Students where FullName ='ulaş erkuş' or Birthday >= '1993-02-01'
+select * from Students where FullName != 'ulaş erkuş'
+select * from Students where Birthday is null
+select * from Students where Birthday is not null
+--
+select * from Students where FullName like 'baran%'
+select * from Students where FullName like 'a%'
+select * from Students where FullName like '%e%'
+--
+select * from Students order by FullName asc
+select * from Students order by FullName desc
+--
+select top 1 * from Students order by NEWID()
+
+use veriTabanı
+
+create table tblPerson(
+Name nvarchar(20),
+PhoneNumber nvarchar(20),
+RegistrationDate date
+)
+
+begin
+insert tblPerson(Name,PhoneNumber,RegistrationDate)values('ahmet','123456789','2020-12-01')
+insert tblPerson(Name,PhoneNumber,RegistrationDate)values('ayşe','223456785','2020-12-02')
+insert tblPerson(Name,PhoneNumber,RegistrationDate)values('veli','323456786','2020-12-03')
+insert tblPerson(Name,PhoneNumber,RegistrationDate)values('hasan','423456787','2020-12-04')
+insert tblPerson(Name,PhoneNumber,RegistrationDate)values('mehmet','523456788','2020-12-05')
+end
+--
+select * from tblPerson
+select * from tblPerson where Name='ahmet' or Name = 'veli'
+select Name from tblPerson
+select PhoneNumber from tblPerson
+select Name,PhoneNumber from tblPerson
+--
+select * from tblPerson where RegistrationDate>='2020-11-01'
+select *  from tblPerson where  RegistrationDate>='2020-12-01' and  RegistrationDate<='2020-12-30'
+select * from tblPerson where RegistrationDate between '2020-11-01' and '2020-12-30'
+--
+select COUNT(*)as [kişi sayısı] from tblPerson
+select Top 3 * from tblPerson
+
+
