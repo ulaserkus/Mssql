@@ -1,0 +1,63 @@
+create database Education
+use Education
+go
+
+create table tblBranch(
+  BranchId int primary key identity(1,1) ,
+  BranchName nvarchar(50) not null
+)
+
+create table tblTeachers(
+TeacherId int primary key identity(1,1),
+FullName nvarchar(50),
+BranchId int 
+foreign key(BranchId) references tblBranch(BranchId)
+)
+
+create table tblClasses(
+ClassId int primary key identity(1,1),
+ClassName nvarchar(50)
+)
+
+create table tblEducations(
+EducationId int primary key identity(1,1),
+TeacherId int foreign key references tblTeachers(TeacherId),
+EducationName nvarchar(50) not null,
+ClassId int foreign key references tblClasses(ClassId)
+)
+
+create procedure insertBranch(
+@BranchName nvarchar(50)
+)
+as
+begin
+insert into tblBranch(BranchName) values (@BranchName)
+end
+
+create procedure insertTeacher(
+@TeacherName nvarchar(50),
+@BranchId int
+)
+as
+begin
+insert into tblTeachers(FullName,BranchId) values (@TeacherName,@BranchId)
+end
+
+create procedure insertClass(
+@ClassName nvarchar(50)
+)
+as
+begin
+insert into tblClasses(ClassName) values (@ClassName)
+end
+
+create procedure insertEducation(
+@EducationName nvarchar(50),
+@ClassId int,
+@EducationId int,
+@TeacherId int
+)
+as
+begin
+insert into tblEducations(EducationName,ClassId,EducationId,TeacherId) values (@EducationName,@ClassId,@EducationId,@TeacherId)
+end
